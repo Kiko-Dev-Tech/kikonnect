@@ -1,0 +1,20 @@
+[package]
+name = "kikonnect-protocol"
+description = "Kikonnect wire protocol: control messages, stream headers, datagram format and framing"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+bytes.workspace = true
+postcard.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+tokio = { workspace = true, features = ["io-util"] }
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["rt", "macros", "io-util"] }
+
+[lints]
+workspace = true

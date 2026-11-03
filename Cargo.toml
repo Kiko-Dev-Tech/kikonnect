@@ -1,0 +1,51 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/protocol",
+    "crates/client-core",
+    "crates/client",
+    "crates/server",
+    "tests",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+rust-version = "1.80"
+repository = "https://github.com/kikonnect/kikonnect"
+
+[workspace.dependencies]
+kikonnect-protocol = { path = "crates/protocol" }
+kikonnect-client-core = { path = "crates/client-core" }
+kikonnect-server = { path = "crates/server" }
+
+anyhow = "1"
+argon2 = { version = "0.5", features = ["std"] }
+bytes = "1"
+clap = { version = "4", features = ["derive", "env"] }
+postcard = { version = "1", features = ["use-std"] }
+# Only the `ring` crypto backend is used everywhere (no aws-lc-rs / cmake / nasm needed).
+quinn = { version = "0.11", default-features = false, features = ["runtime-tokio", "rustls-ring", "log"] }
+rcgen = { version = "0.14", default-features = false, features = ["crypto", "pem", "ring"] }
+rustls = { version = "0.23", default-features = false, features = ["ring", "std", "logging", "tls12"] }
+rustls-pki-types = { version = "1.10", features = ["std"] }
+serde = { version = "1", features = ["derive"] }
+thiserror = "2"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "io-util", "time", "sync", "signal"] }
+tokio-util = { version = "0.7", features = ["rt"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json", "fmt"] }
+webpki-roots = "1"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+unwrap_used = "warn"
+expect_used = "warn"
+
+# Optimise dependencies even in debug builds: QUIC crypto and large transfers in
+# tests are painfully slow otherwise.
+[profile.dev.package."*"]
+opt-level = 2

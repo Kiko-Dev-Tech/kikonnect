@@ -1,0 +1,22 @@
+[package]
+name = "kikonnect-client-core"
+description = "Kikonnect client networking (host and join modes), independent of any UI"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+kikonnect-protocol.workspace = true
+bytes.workspace = true
+quinn.workspace = true
+rustls.workspace = true
+rustls-pki-types.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+tracing.workspace = true
+webpki-roots.workspace = true
+
+[lints]
+workspace = true

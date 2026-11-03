@@ -1,0 +1,25 @@
+[package]
+name = "kikonnect-client"
+description = "Kikonnect desktop client (egui)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[[bin]]
+name = "kikonnect-client"
+path = "src/main.rs"
+
+[dependencies]
+kikonnect-client-core.workspace = true
+anyhow.workspace = true
+directories = "6"
+eframe = { version = "0.37", default-features = false, features = ["default_fonts", "glow", "x11", "wayland"] }
+serde.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+toml = "1"
+
+[lints]
+workspace = true

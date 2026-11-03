@@ -1,0 +1,36 @@
+[package]
+name = "kikonnect-server"
+description = "Kikonnect relay server"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "kikonnect-server"
+path = "src/main.rs"
+
+[dependencies]
+kikonnect-protocol.workspace = true
+anyhow.workspace = true
+argon2.workspace = true
+bytes.workspace = true
+clap.workspace = true
+quinn.workspace = true
+rcgen.workspace = true
+rustls.workspace = true
+rustls-pki-types.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["test-util"] }
+
+[lints]
+workspace = true

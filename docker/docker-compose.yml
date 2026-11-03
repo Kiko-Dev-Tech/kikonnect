@@ -1,0 +1,28 @@
+# Example deployment of the Kikonnect relay server.
+#
+#   cp docker/.env.example docker/.env     # adjust as needed
+#   docker compose -f docker/docker-compose.yml up -d
+#
+# The server needs a TLS certificate. Mount your Let's Encrypt directory
+# (CERT_DIR) read-only; the server reloads renewed certificates automatically.
+# For local testing generate a self-signed one, see the README.
+services:
+  kikonnect-server:
+    image: ${KIKONNECT_IMAGE:-ghcr.io/kikonnect/kikonnect-server:latest}
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      # QUIC is UDP!
+      - "${KIKONNECT_PUBLIC_PORT:-7000}:7000/udp"
+    volumes:
+      - ${CERT_DIR:-./certs}:/certs:ro
+    stop_grace_period: 15s
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true

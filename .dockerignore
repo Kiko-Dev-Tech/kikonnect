@@ -1,0 +1,13 @@
+target/
+.git/
+.github/
+dev-certs/
+**/certs/
+docker/.env
+*.md
+# Only the server is built in the image; client sources are not needed
+# (only crates/client/Cargo.toml, which the workspace manifest refers to).
+crates/client/src/
+crates/client-core/src/
+tests/src/
+tests/tests/
