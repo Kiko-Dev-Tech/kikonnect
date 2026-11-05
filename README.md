@@ -2,6 +2,10 @@
 
 LAN games over the internet **without port forwarding**.
 
+Components:
+- Relay server (Your Server, runs in Docker)
+- Player App (The host and players need this)
+
 One player (the **host**) shares a locally running game server (e.g. Minecraft on
 `localhost:25565`). Friends (the **players**) run the same app, enter the host's name and connect
 their game to `localhost`. Both sides only make *outbound* connections to a small relay server, so
@@ -88,7 +92,7 @@ CI (`.github/workflows/ci.yml`) runs `cargo fmt --check`, `clippy -D warnings` a
 every push, builds client/server binaries for Linux, Windows and macOS, and builds the multi-arch
 image. Pushing a tag `v*` additionally publishes the image to GitHub Container Registry.
 
-## Is this vibecoded?
+## Is this ✨vibecoded✨?
 
 **Yes, but...** I'm a software developer with over 10 years of experience. The idea, the
 architecture and the concept are mine; AI was used to write the code in a timely manner.
