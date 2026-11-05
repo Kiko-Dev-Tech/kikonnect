@@ -11,9 +11,9 @@ members = [
 [workspace.package]
 version = "0.1.0"
 edition = "2021"
-license = "MIT OR Apache-2.0"
+license = "PolyForm-Noncommercial-1.0.0"
 rust-version = "1.80"
-repository = "https://github.com/kikonnect/kikonnect"
+repository = "https://github.com/kiko-dev-tech/kikonnect"
 
 [workspace.dependencies]
 kikonnect-protocol = { path = "crates/protocol" }

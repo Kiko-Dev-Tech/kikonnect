@@ -20,7 +20,7 @@ TCP games (Minecraft Java) and UDP games (Minecraft Bedrock, 19132) are supporte
 ## Using the client
 
 Download `kikonnect-client` for your OS from the
-[CI artifacts / releases](https://github.com/kikonnect/kikonnect/actions) or build it with
+[CI artifacts / releases](https://github.com/kiko-dev-tech/kikonnect/actions) or build it with
 `cargo build --release -p kikonnect-client`.
 
 1. **Settings** – enter the relay server address (default `tunnel.example.com:7000`). The
@@ -170,4 +170,10 @@ reload.
 
 ## License
 
-MIT OR Apache-2.0
+Kikonnect is **source-available** under the
+[PolyForm Noncommercial License 1.0.0](LICENSE). You may use, modify and share it for any
+noncommercial purpose (personal use, hobby projects, education, non-profits, ...). **Commercial
+use is not permitted** without a separate agreement. Contact the author for commercial licensing.
+
+Note: because of the noncommercial restriction this is not an OSI-approved "open source" license.
+Third-party dependencies keep their own (permissive) licenses.

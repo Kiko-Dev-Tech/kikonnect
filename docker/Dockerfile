@@ -59,6 +59,9 @@ ENV KIKONNECT_LISTEN=0.0.0.0:7000 \
     KIKONNECT_KEY=/certs/privkey.pem \
     KIKONNECT_LOG_FORMAT=json
 
+LABEL org.opencontainers.image.licenses="PolyForm-Noncommercial-1.0.0" \
+      org.opencontainers.image.source="https://github.com/kiko-dev-tech/kikonnect"
+
 # QUIC runs over UDP, not TCP.
 EXPOSE 7000/udp
 
