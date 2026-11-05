@@ -1,28 +1,42 @@
-# Example deployment of the Kikonnect relay server.
+# Kikonnect relay server.
 #
-#   cp docker/.env.example docker/.env     # adjust as needed
 #   docker compose -f docker/docker-compose.yml up -d
 #
-# The server needs a TLS certificate. Mount your Let's Encrypt directory
-# (CERT_DIR) read-only; the server reloads renewed certificates automatically.
-# For local testing generate a self-signed one, see the README.
+# Before the first start: put fullchain.pem and privkey.pem into ./certs
+# (or change the volume below), and open UDP port 7000 i  n your firewall.
 services:
   kikonnect-server:
-    image: ${KIKONNECT_IMAGE:-ghcr.io/kikonnect/kikonnect-server:latest}
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
+    # Replace kiko-dev-tech with your GitHub user/organisation (lower case).
+    image: ghcr.io/kiko-dev-tech/kikonnect-server:latest
+    # Uncomment to build the image locally instead of pulling it:
+    # build:
+    #   context: ..
+    #   dockerfile: docker/Dockerfile
     restart: unless-stopped
-    env_file:
-      - .env
     ports:
-      # QUIC is UDP!
-      - "${KIKONNECT_PUBLIC_PORT:-7000}:7000/udp"
+      - "7000:7000/udp" # QUIC runs over UDP, not TCP
     volumes:
-      - ${CERT_DIR:-./certs}:/certs:ro
+      - ./certs:/certs:ro
+    environment:
+      # Same defaults as baked into the image; remove any line you don't need to change.
+      KIKONNECT_LISTEN: "0.0.0.0:7000"
+      KIKONNECT_CERT: /certs/fullchain.pem
+      KIKONNECT_KEY: /certs/privkey.pem
+      KIKONNECT_LOG_FORMAT: json # json | text
+      KIKONNECT_LOG: info
+      KIKONNECT_MAX_TUNNELS: "500"
+      KIKONNECT_MAX_PLAYERS_PER_TUNNEL: "32"
+      KIKONNECT_MAX_UDP_SESSIONS_PER_TUNNEL: "1024"
+      KIKONNECT_MAX_STREAMS_PER_CONNECTION: "256"
+      KIKONNECT_MAX_CONNECTIONS: "10000"
+      KIKONNECT_UDP_SESSION_TIMEOUT: "60" # seconds
+      KIKONNECT_NAME_GRACE_PERIOD: "60" # seconds
+      KIKONNECT_RATE_LIMIT_BURST: "10"
+      KIKONNECT_RATE_LIMIT_PER_MINUTE: "30" # 0 disables
     stop_grace_period: 15s
     read_only: true
     cap_drop:
       - ALL
     security_opt:
       - no-new-privileges:true
+    # The image already defines a HEALTHCHECK (kikonnect-server healthcheck).
